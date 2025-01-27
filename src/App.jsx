@@ -1,19 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import workintech from '/workintech.svg'
-import './App.css'
-import PizzaOrderForm from './components/orderForm'
-import Header from './components/header'
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
+import HomePage from "./components/homePage";
+import PizzaOrderPage from "./components/PizzaOrderPage";
+import Header from "./components/header";
 
+const App = () => {
+  const location = useLocation();
 
-function App() {
   return (
-    
-    <div className="App">
-       <Header />
-      <PizzaOrderForm />
-    </div>
+    <>
+      {/* Header yalnızca anasayfa dışında gösterilecek */}
+      {location.pathname !== "/" && <Header />}
+      <main>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/siparis" component={PizzaOrderPage} />
+        </Switch>
+      </main>
+    </>
   );
-}
+};
 
-export default App;
+const AppWrapper = () => (
+  <Router>
+    <App />
+  </Router>
+);
+
+export default AppWrapper;

@@ -1,28 +1,43 @@
 import React from "react";
-import "./header.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header>
-      {/* Logo */}
+    <header
+      style={{
+        backgroundColor: "red",
+        padding: "10px 20px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       <div className="logo-container">
         <img
-          src="./images/iteration-1-images/logo.svg" // Logonuzun doğru yolunu buraya yazın
+          src="./images/iteration-1-images/logo.svg" 
           alt="Logo"
+          style={{ height: "40px" }}
         />
       </div>
-
-      {/* Menü */}
-      <nav className="menu-container">
-        <ul>
+      <nav>
+        <ul
+          style={{
+            display: "flex",
+            gap: "20px",
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+          }}
+        >
           <li>
-            <a href="#anasayfa">Anasayfa</a>
+            <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
+              Anasayfa
+            </Link>
           </li>
           <li>
-            <a href="#secenekler">Seçenekler</a>
-          </li>
-          <li>
-            <a href="#siparis">Sipariş Oluştur</a>
+            <Link to="/siparis" style={{ color: "#fff", textDecoration: "none" }}>
+              Sipariş Oluştur
+            </Link>
           </li>
         </ul>
       </nav>
