@@ -3,18 +3,20 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from "react-route
 import HomePage from "./components/homePage";
 import PizzaOrderPage from "./components/PizzaOrderPage";
 import Header from "./components/header";
+import SuccessPage from "./components/successPage";
 
 const App = () => {
   const location = useLocation();
 
   return (
     <>
-      {/* Header yalnızca anasayfa dışında gösterilecek */}
+    
       {location.pathname !== "/" && <Header />}
       <main>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/siparis" component={PizzaOrderPage} />
+          <Route path="/success" element={<SuccessPage />} />
         </Switch>
       </main>
     </>

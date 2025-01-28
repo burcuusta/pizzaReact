@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
@@ -141,6 +142,7 @@ const PizzaOrderForm = () => {
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [note, setNote] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const history = useHistory(); 
 
   const basePrice = 85.5;
   const sizePrices = { Küçük: 0, Orta: 10, Büyük: 20 };
@@ -175,7 +177,7 @@ const PizzaOrderForm = () => {
       .post("https://reqres.in/api/pizza", orderData)
       .then((response) => {
         console.log("Sipariş Alındı:", response.data);
-        alert("Siparişiniz başarıyla alındı!");
+        history.push("/success"); 
       })
       .catch((error) => {
         console.error("Hata oluştu:", error);
