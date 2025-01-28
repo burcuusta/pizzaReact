@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import Button from "./button";
 
 const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
   const sizes = ["Küçük", "Orta", "Büyük"];
   const sizePrices = { Küçük: 0, Orta: 10, Büyük: 20 };
   return (
-    <div style={{ display: "inline-block", marginRight: "10rem" }}>
+    <div>
       <h3>Boyut Seç <span style={{ color: "red" }}>*</span></h3>
       {sizes.map((size) => (
-        <label key={size} style={{ display: "block", marginBottom: "10px" }}>
+        <label key={size} style={{ display: "block", marginBottom: "0.2rem" }}>
           <input
             type="radio"
             name="size"
@@ -27,7 +28,7 @@ const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
 const PizzaDoughSelector = ({ selectedDough, setSelectedDough }) => {
   const doughTypes = ["İnce", "Orta", "Kalın"];
   return (
-    <div style={{ display: "inline-block",}}>
+    <div >
       <h3>Hamur Seç <span style={{ color: "red" }}>*</span></h3>
       <select value={selectedDough} onChange={(e) => setSelectedDough(e.target.value)}>
         <option value="">Hamur Kalınlığı</option>
@@ -67,7 +68,7 @@ const PizzaToppings = ({ selectedToppings, toggleTopping }) => {
 
   return (
     <div>
-      <h3>Ek Malzemeler (5₺) <span style={{ color: "red" }}>*</span></h3>
+      <h3>Ek Malzemeler </h3>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
         {toppingsList.map((topping) => (
           <label key={topping} style={{ marginBottom: "10px" }}>
@@ -90,12 +91,13 @@ const PizzaToppings = ({ selectedToppings, toggleTopping }) => {
 
 const OrderNote = ({ note, setNote }) => {
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ marginTop: "20px", flex: "1" }}>
       <h3>Sipariş Notu</h3>
       <textarea
         placeholder="Siparişe eklemek istediğiniz bir not var mı?"
         value={note}
         onChange={(e) => setNote(e.target.value)}
+        style={{ width: "100%", height: "100px" }}
       />
     </div>
   );
@@ -103,23 +105,11 @@ const OrderNote = ({ note, setNote }) => {
 
 const OrderQuantity = ({ quantity, setQuantity }) => {
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ display: "inline-block" }}>
       <h3>Adet</h3>
-      <button
-        type="button"
-        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-        style={{ backgroundColor: "yellow" }}
-      >
-        -
-      </button>
-      <span style={{ margin: "0 10px" }}>{quantity}</span>
-      <button
-        type="button"
-        onClick={() => setQuantity(quantity + 1)}
-        style={{ backgroundColor: "yellow" }}
-      >
-        +
-      </button>
+      <button onClick={() => setQuantity(Math.max(1, quantity - 1))}  style={{backgroundColor: "yellow"}} >-</button>
+      <span style={{ margin: "1rem"}}>{quantity}</span>
+      <button onClick={() => setQuantity(quantity + 1)} style={{backgroundColor: "yellow"}} >+</button>
     </div>
   );
 };
@@ -127,9 +117,9 @@ const OrderQuantity = ({ quantity, setQuantity }) => {
 const OrderSummary = ({ basePrice, extraPrice, quantity }) => {
   const totalPrice = (basePrice + extraPrice) * quantity;
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div style={{ display: "inline-block", marginLeft: "20px" }}>
       <h3>Sipariş Özeti</h3>
-      <p>Ekstralar: {extraPrice.toFixed(2)}₺</p>
+      <p>Seçimler: {extraPrice.toFixed(2)}₺</p>
       <p>Toplam: {totalPrice.toFixed(2)}₺</p>
     </div>
   );
@@ -142,7 +132,7 @@ const PizzaOrderForm = () => {
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [note, setNote] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const history = useHistory(); 
+  const history = useHistory();
 
   const basePrice = 85.5;
   const sizePrices = { Küçük: 0, Orta: 10, Büyük: 20 };
@@ -177,7 +167,7 @@ const PizzaOrderForm = () => {
       .post("https://reqres.in/api/pizza", orderData)
       .then((response) => {
         console.log("Sipariş Alındı:", response.data);
-        history.push("/success"); 
+        history.push("/success");
       })
       .catch((error) => {
         console.error("Hata oluştu:", error);
@@ -202,23 +192,24 @@ const PizzaOrderForm = () => {
         />
       </label>
 
-      <p>Fiyat: 85.50₺</p>
-      <PizzaSizeSelector selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
-      <PizzaDoughSelector selectedDough={selectedDough} setSelectedDough={setSelectedDough} />
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <PizzaSizeSelector selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
+        <PizzaDoughSelector selectedDough={selectedDough} setSelectedDough={setSelectedDough} />
+      </div>
       <PizzaToppings selectedToppings={selectedToppings} toggleTopping={toggleTopping} />
-      <OrderNote note={note} setNote={setNote} />
-      <OrderQuantity quantity={quantity} setQuantity={setQuantity} />
-      <OrderSummary basePrice={basePrice} extraPrice={extraPrice} quantity={quantity} />
-      <button
-        type="submit"
-        style={{ backgroundColor: "yellow", padding: "10px 20px", border: "none" }}
-      >
+      <div style={{ display: "flex", gap: "10rem", marginTop: "20px" }}>
+        <OrderNote note={note} setNote={setNote} />
+        <div style={{ flex: "1" }} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+        <OrderQuantity quantity={quantity} setQuantity={setQuantity} />
+        <OrderSummary basePrice={basePrice} extraPrice={extraPrice} quantity={quantity} />
+      </div>
+      <Button type="submit" style={{ marginTop: "20px" }}>
         Sipariş Ver
-      </button>
+      </Button>
     </form>
   );
 };
-
-
 
 export default PizzaOrderForm;

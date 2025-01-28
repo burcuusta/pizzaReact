@@ -4,6 +4,7 @@ import HomePage from "./components/homePage";
 import PizzaOrderPage from "./components/PizzaOrderPage";
 import Header from "./components/header";
 import SuccessPage from "./components/successPage";
+import "./App.css";
 
 const App = () => {
   const location = useLocation();

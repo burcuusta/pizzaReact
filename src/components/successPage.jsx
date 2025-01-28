@@ -1,13 +1,27 @@
-import React from "react";
+
+import Logo from "./logo";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom"
 
 const SuccessPage = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      history.push("/");
+    }, 5000); 
+
+    return () => clearTimeout(timer);
+  }, [history]);
+
   return (
     <div style={styles.container}>
-      <h1 style={styles.header}>Teknolojik Yemekler</h1>
+      <Logo />
       <div style={styles.messageBox}>
         <h2 style={styles.message}>TEBRİKLER!</h2>
         <h2 style={styles.message}>SİPARİŞİNİZ ALINDI!</h2>
       </div>
+      <p>5 saniye içinde anasayfaya yönlendirileceksiniz...</p>
     </div>
   );
 };
@@ -23,11 +37,6 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     padding: "20px",
-  },
-  header: {
-    fontSize: "28px",
-    fontWeight: "bold",
-    marginBottom: "20px",
   },
   messageBox: {
     backgroundColor: "#fff",
