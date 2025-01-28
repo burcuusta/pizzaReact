@@ -13,11 +13,11 @@ const App = () => {
     
       {location.pathname !== "/" && <Header />}
       <main>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/siparis" component={PizzaOrderPage} />
-          <Route path="/success" element={<SuccessPage />} />
-        </Switch>
+      <Switch>
+  <Route exact path="/" component={HomePage} />
+  <Route path="/siparis" component={PizzaOrderPage} />
+  <Route path="/success" component={SuccessPage} />
+</Switch>
       </main>
     </>
   );
