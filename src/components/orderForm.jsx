@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import Button from "./button";
+import axios from "axios";
 
 const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
   const sizes = ["Küçük", "Orta", "Büyük"];
@@ -69,9 +69,9 @@ const PizzaToppings = ({ selectedToppings, toggleTopping }) => {
   return (
     <div>
       <h3>Ek Malzemeler </h3>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
         {toppingsList.map((topping) => (
-          <label key={topping} style={{ marginBottom: "10px" }}>
+          <label key={topping} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <input
               type="checkbox"
               value={topping}
@@ -107,9 +107,9 @@ const OrderQuantity = ({ quantity, setQuantity }) => {
   return (
     <div style={{ display: "inline-block" }}>
       <h3>Adet</h3>
-      <button onClick={() => setQuantity(Math.max(1, quantity - 1))}  style={{backgroundColor: "yellow"}} >-</button>
-      <span style={{ margin: "1rem"}}>{quantity}</span>
-      <button onClick={() => setQuantity(quantity + 1)} style={{backgroundColor: "yellow"}} >+</button>
+      <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}  style={{backgroundColor: "yellow"}} >-</button>
+      <span style={{ margin: "1rem" }}>{quantity}</span>
+      <button onClick={() => setQuantity((prev) => prev + 1)} style={{backgroundColor: "yellow"}} >+</button>
     </div>
   );
 };
@@ -132,11 +132,17 @@ const PizzaOrderForm = () => {
   const [selectedToppings, setSelectedToppings] = useState([]);
   const [note, setNote] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [showNameError, setShowNameError] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    setShowNameError(true);
+  }, []);
 
   const basePrice = 85.5;
   const sizePrices = { Küçük: 0, Orta: 10, Büyük: 20 };
   const extraPrice = selectedToppings.length * 5 + sizePrices[selectedSize || "Küçük"];
+  const isFormValid = name.length >= 3 && selectedSize && selectedDough && selectedToppings.length >= 4;
 
   const toggleTopping = (topping) => {
     setSelectedToppings((prev) =>
@@ -176,40 +182,33 @@ const PizzaOrderForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{ maxWidth: "600px", margin: "50px auto", textAlign: "center" }}
-    >
-      <h2>Position Absolute Acı Pizza</h2>
-      <label>
-        Adınız:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          minLength="3"
-        />
-      </label>
+    <form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "600px", margin: "50px auto" }}>
+      <h2 style={{ textAlign: "center" }}>Position Absolute Acı Pizza</h2>
+      
 
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <PizzaSizeSelector selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
         <PizzaDoughSelector selectedDough={selectedDough} setSelectedDough={setSelectedDough} />
       </div>
-      <PizzaToppings selectedToppings={selectedToppings} toggleTopping={toggleTopping} />
-      <div style={{ display: "flex", gap: "10rem", marginTop: "20px" }}>
+        <PizzaToppings selectedToppings={selectedToppings} toggleTopping={toggleTopping} />
+      
+        <div style={{ textAlign: "left", marginTop: "20px" }}>
+        <h3>Adınız:</h3>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        {showNameError && name.length < 3 && <p style={{ color: "red" }}>Adınız en az 3 karakter olmalıdır.</p>}
+      </div>
+      <div style={{ display: "flex", gap: "10rem", marginTop: "20px", textAlign: "left" }}>
         <OrderNote note={note} setNote={setNote} />
         <div style={{ flex: "1" }} />
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "20px" }}>
         <OrderQuantity quantity={quantity} setQuantity={setQuantity} />
         <OrderSummary basePrice={basePrice} extraPrice={extraPrice} quantity={quantity} />
       </div>
-      <Button type="submit" style={{ marginTop: "20px" }}>
-        Sipariş Ver
-      </Button>
+      <div style={{ textAlign: "right", marginTop: "10px" }}>
+        <Button type="submit" disabled={!isFormValid} style={{ width: "50%" }}>Sipariş Ver</Button>
+      </div>
     </form>
   );
 };
-
 export default PizzaOrderForm;
