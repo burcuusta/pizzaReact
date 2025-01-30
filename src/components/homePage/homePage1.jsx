@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "./logo";
-import Button from "./button";
+import Logo from "../logo";
+import Button from "../button";
 
-const HomePage = () => {
+const HomePage1 = () => {
   return (
     <div style={styles.container}>
       <img
@@ -13,6 +13,7 @@ const HomePage = () => {
       />
       <div style={styles.content}>
         <Logo />
+        <p style={styles.opp}>Fırsatı Kaçırma...</p>
         <p style={styles.subtitle}>
           KOD ACIKTIRIR, <br /> PİZZA DOYURUR
         </p>
@@ -26,60 +27,34 @@ const HomePage = () => {
 
 const styles = {
   container: {
-    position: "relative",
-    width: "100%", 
+    position:"relative",
+    width: "100%",
     height: "100vh",
     display: "flex",
-    justifyContent: "center",
-    textAlign: "center",
-    overflow: "hidden",
   },
   backgroundImage: {
     position: "absolute",
-    top: 0,
-    left: 0,
     width: "100%",
     height: "100%",
     objectFit: "cover",
     zIndex: -1,
   },
   content: {
-    position: "relative",
     zIndex: 1,
     color: "#fff",
     textAlign: "center",
-    paddingTop: "5%",
-    paddingLeft: "10%",
-    paddingRight: "10%",
     width: "100%",  
-    boxSizing: "border-box",
   },
-  title: {
-    fontSize: "48px", 
+  subtitle: {
+    fontSize: "20px", 
     fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: "2px",
     textShadow: "2px 2px 10px rgba(0, 0, 0, 0.8)", 
   },
-  subtitle: {
-    fontSize: "26px",
-    margin: "20px 0",
-    textShadow: "2px 2px 10px rgba(0, 0, 0, 0.6)",
-
+  opp: {
+    fontFamily: "satisfy",
+    color: "#FDC913",
   },
-  button: {
-    backgroundColor: "#FDC913",
-    border: "none",
-    padding: "15px 30px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    fontSize: "18px",
-    transition: "all 0.3s ease-in-out",
-  },
-  buttonHover: {
-    backgroundColor: "#FFC107",
-    boxShadow: "0px 8px 20px rgba(255, 193, 7, 0.5)",
-    transform: "scale(1.05)",
-  }, }
-
-export default HomePage;
+}
+export default HomePage1;

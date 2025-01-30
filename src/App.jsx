@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
-import HomePage from "./components/homePage";
+import HomePage from "./components/homepage/homepage";
 import PizzaOrderPage from "./components/PizzaOrderPage";
 import Header from "./components/header";
 import SuccessPage from "./components/successPage";
