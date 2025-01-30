@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "./button";
 import axios from "axios";
+import SuccessPage from "./successPage";
 
 const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
   const sizes = ["Küçük", "Orta", "Büyük"];
@@ -10,7 +11,7 @@ const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
     <div>
       <h3>Boyut Seç <span style={{ color: "red" }}>*</span></h3>
       {sizes.map((size) => (
-        <label key={size} style={{ display: "block", marginBottom: "0.2rem" }}>
+        <label key={size} style={{ display: "block", marginBottom: "0.2rem" , color: " #5F5F5F"}}>
           <input
             type="radio"
             name="size"
@@ -68,8 +69,11 @@ const PizzaToppings = ({ selectedToppings, toggleTopping }) => {
 
   return (
     <div>
-      <h3>Ek Malzemeler </h3>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px" }}>
+      <h3 style={{textAlign:"left"}}>Ek Malzemeler </h3>
+      {selectedToppings.length < 4 && (
+        <p style={{ color: " #5F5F5F",textAlign:"left" }}>En az 4 en fazla 10 malzeme seçebilirsiniz.5₺</p>
+      )}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", color: "#5F5F5F", fontWeight: "bold" }}>
         {toppingsList.map((topping) => (
           <label key={topping} style={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <input
@@ -82,9 +86,6 @@ const PizzaToppings = ({ selectedToppings, toggleTopping }) => {
           </label>
         ))}
       </div>
-      {selectedToppings.length < 4 && (
-        <p style={{ color: "red" }}>En az 4 malzeme seçmelisiniz.</p>
-      )}
     </div>
   );
 };
@@ -106,10 +107,9 @@ const OrderNote = ({ note, setNote }) => {
 const OrderQuantity = ({ quantity, setQuantity }) => {
   return (
     <div style={{ display: "inline-block" }}>
-      <h3>Adet</h3>
-      <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}  style={{backgroundColor: "yellow"}} >-</button>
+      <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}  style={{backgroundColor: "#FDC913"}} >-</button>
       <span style={{ margin: "1rem" }}>{quantity}</span>
-      <button onClick={() => setQuantity((prev) => prev + 1)} style={{backgroundColor: "yellow"}} >+</button>
+      <button onClick={() => setQuantity((prev) => prev + 1)} style={{backgroundColor: "#FDC913"}} >+</button>
     </div>
   );
 };
@@ -117,10 +117,10 @@ const OrderQuantity = ({ quantity, setQuantity }) => {
 const OrderSummary = ({ basePrice, extraPrice, quantity }) => {
   const totalPrice = (basePrice + extraPrice) * quantity;
   return (
-    <div style={{ display: "inline-block", marginLeft: "20px" }}>
-      <h3>Sipariş Özeti</h3>
-      <p>Seçimler: {extraPrice.toFixed(2)}₺</p>
-      <p>Toplam: {totalPrice.toFixed(2)}₺</p>
+    <div style={{ display: "inline-block",textAlign:"left" }}>
+      <h2>Sipariş Toplamı</h2>
+      <p style={{ color: " #5F5F5F", fontWeight:"bold"}}>Seçimler: {extraPrice.toFixed(2)}₺</p>
+      <p style={{ color: "#CE2829" , fontWeight:"bold"}}>Toplam: {totalPrice.toFixed(2)}₺</p>
     </div>
   );
 };
@@ -154,32 +154,33 @@ const PizzaOrderForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !selectedSize || !selectedDough || selectedToppings.length < 4) {
+    if (!isFormValid) {
       alert("Lütfen tüm alanları doğru şekilde doldurun.");
       return;
     }
 
     const orderData = {
-      isim: name,
-      boyut: selectedSize,
-      hamur: selectedDough,
-      malzemeler: selectedToppings,
-      özel: note,
-      adet: quantity,
-      toplam: (basePrice + extraPrice) * quantity,
+      pizzaName: "Position Absolute Acı Pizza",
+      size: selectedSize,
+      crust: selectedDough,
+      toppings: selectedToppings,
+      extraPrice: extraPrice,
+      totalPrice: (basePrice + extraPrice) * quantity,
     };
-
     axios
-      .post("https://reqres.in/api/pizza", orderData)
-      .then((response) => {
-        console.log("Sipariş Alındı:", response.data);
-        history.push("/success");
-      })
-      .catch((error) => {
-        console.error("Hata oluştu:", error);
-        alert("Siparişiniz alınırken bir hata oluştu.");
-      });
-  };
+    .post("https://reqres.in/api/pizza", orderData)
+    .then((response) => {
+      console.log("Sipariş Alındı:", response.data);
+  history.push({
+    pathname: "/success",
+    state: orderData,
+  });
+})
+.catch((error) => {
+      console.error("Hata oluştu:", error);
+      alert("Siparişiniz alınırken bir hata oluştu.");
+    });
+};
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "600px", margin: "50px auto" }}>
@@ -197,11 +198,11 @@ const PizzaOrderForm = () => {
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
         {showNameError && name.length < 3 && <p style={{ color: "red" }}>Adınız en az 3 karakter olmalıdır.</p>}
       </div>
-      <div style={{ display: "flex", gap: "10rem", marginTop: "20px", textAlign: "left" }}>
+      <div style={{  marginTop: "20px", textAlign: "left" }}>
         <OrderNote note={note} setNote={setNote} />
         <div style={{ flex: "1" }} />
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "20px" }}>
+      <div style={{ display:"flex",gap:"10rem",alignItems: "center", marginTop: "20px"}}>
         <OrderQuantity quantity={quantity} setQuantity={setQuantity} />
         <OrderSummary basePrice={basePrice} extraPrice={extraPrice} quantity={quantity} />
       </div>
@@ -211,4 +212,14 @@ const PizzaOrderForm = () => {
     </form>
   );
 };
+const orderForm = {
+  pizzaName: "Position Absolute Acı Pizza",
+  size: "L",
+  crust: "Süper İnce",
+  toppings: ["Pepperoni", "Sosis", "Mısır", "Ananas", "Jalepeno"],
+  extraPrice: 25.00,
+  totalPrice: 110.50,
+};
+
+<SuccessPage orderData={orderForm} />
 export default PizzaOrderForm;

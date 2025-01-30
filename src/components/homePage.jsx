@@ -27,7 +27,7 @@ const HomePage = () => {
 const styles = {
   container: {
     position: "relative",
-    width: "100vw",
+    width: "100%", 
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -49,6 +49,10 @@ const styles = {
     color: "#fff",
     textAlign: "center",
     paddingTop: "5%",
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    width: "100%",  
+    boxSizing: "border-box",
   },
   title: {
     fontSize: "48px", 
@@ -61,6 +65,7 @@ const styles = {
     fontSize: "26px",
     margin: "20px 0",
     textShadow: "2px 2px 10px rgba(0, 0, 0, 0.6)",
+
   },
   button: {
     backgroundColor: "#FDC913",
@@ -75,7 +80,6 @@ const styles = {
     backgroundColor: "#FFC107",
     boxShadow: "0px 8px 20px rgba(255, 193, 7, 0.5)",
     transform: "scale(1.05)",
-  },
-};
+  }, }
 
 export default HomePage;

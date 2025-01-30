@@ -1,55 +1,89 @@
 
 import Logo from "./logo";
 import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom";
 
 const SuccessPage = () => {
   const history = useHistory();
+  const location = useLocation();
+  const orderData = location.state || {};
 
   useEffect(() => {
     const timer = setTimeout(() => {
       history.push("/");
-    }, 5000); 
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [history]);
 
+  if (!orderData.pizzaName) {
+    return (
+      <div style={styles.container}>
+        <h1>Hata!</h1>
+        <p>Sipariş verisi bulunamadı.</p>
+      </div>
+    );
+  }
+
   return (
     <div style={styles.container}>
       <Logo />
-      <div style={styles.messageBox}>
-        <h2 style={styles.message}>TEBRİKLER!</h2>
-        <h2 style={styles.message}>SİPARİŞİNİZ ALINDI!</h2>
+      <h3 style={styles.styled}>lezzetin yolda...</h3>
+      <h2 style={styles.message}>SİPARİŞİNİZ ALINDI!</h2>
+      <hr size="1" style={{width:"50%"}} />
+      <div style={styles.orderBox}>
+        <p style={styles.name}>{orderData.pizzaName}</p>
+        <p style={styles.spec}>Boyut: <strong>{orderData.size}</strong></p>
+        <p style={styles.spec}>Hamur: <strong>{orderData.crust}</strong></p>
+        <p style={styles.spec}>Ek Malzemeler: <strong>{orderData.toppings ? orderData.toppings.join(","): "Yok"}</strong></p>
+        </div>
+        <div style={styles.priceBox}>
+          <h2>Sipariş Toplamı</h2>
+        <p>Seçimler {orderData.extraPrice ? orderData.extraPrice : "0.00"}₺</p>
+        <p>Toplam {orderData.totalPrice ? orderData.totalPrice : "0.00"}₺</p>
       </div>
-      <p>5 saniye içinde anasayfaya yönlendirileceksiniz...</p>
+      <p>10 saniye içinde anasayfaya yönlendirileceksiniz...</p>
     </div>
   );
 };
 
 const styles = {
   container: {
-    backgroundColor: "#D32F2F", 
-    color: "#fff", 
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    backgroundColor: "#D32F2F",
+    color: "#fff",
     alignItems: "center",
     textAlign: "center",
-    padding: "20px",
   },
-  messageBox: {
-    backgroundColor: "#fff",
-    color: "#D32F2F",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
-    display: "inline-block",
+  styled: {
+    fontSize: "20px",
+    fontWeight: "bold",
+    color:"#FDC913",
+    fontFamily: "Satisfy",
   },
   message: {
-    fontSize: "32px",
-    fontWeight: "bold",
-    margin: "10px 0",
+    fontSize: "40px",
+    fontFamily:"Barlow",
+    fontStyle:"italic",
+  },
+  orderBox: {
+   fontFamily:"Barlow",
+   
+  },
+  name:{
+    marginBottom: "3rem",
+  },
+  spec:{
+  
+
+  },
+  priceBox: {
+   
+    fontFamily:"Barlow",
+    border: "1px solid #fff",
+    width:"fit-content",
+    padding: "1rem 2rem",
+    alignItems: "center",
+    display: "inline-block",
   },
 };
 

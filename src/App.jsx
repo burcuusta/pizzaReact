@@ -8,11 +8,12 @@ import "./App.css";
 
 const App = () => {
   const location = useLocation();
+  const excludedPaths = ["/success", "/"];
 
   return (
     <>
     
-      {location.pathname !== "/" && <Header />}
+    {!excludedPaths.includes(location.pathname) && <Header />} 
       <main>
       <Switch>
   <Route exact path="/" component={HomePage} />

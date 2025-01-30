@@ -31,7 +31,7 @@ const styles = {
     borderRadius: "5px",
   },
   buttonHover: {
-    backgroundColor: "#FFC107",
+    backgroundColor: "yellow",
     boxShadow: "0px 8px 20px rgba(255, 193, 7, 0.5)",
     transform: "scale(1.05)",
   },
