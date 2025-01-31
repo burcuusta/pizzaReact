@@ -10,7 +10,7 @@ const orderData = location.state?.orderData;
   useEffect(() => {
     const timer = setTimeout(() => {
       history.push("/");
-    }, 100000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, [history]);

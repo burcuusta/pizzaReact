@@ -7,17 +7,21 @@ const CategoryPage = () => {
 
   useEffect(() => {
     fetch("/foodData.json") 
-      .then((response) => response.json())
-      .then((data) => {
-        const filtered = data.filter((item) => item.category === categoryName);
-        setFilteredProducts(filtered);
-      })
+  .then((response) => response.json())
+  .then((data) => {
+    if (categoryName) {
+      const filtered = data.filter((item) => item.category === categoryName);
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(data);
+    }
+  })
       .catch((error) => console.error("Veri çekme hatası:", error));
   }, [categoryName]);
 
   return (
     <div className="container3">
-      <h1>{categoryName} Ürünleri</h1>
+      <h1>{categoryName ? `${categoryName} Ürünleri` : "Tüm Ürünler"}</h1>
       <div className="food-grid">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (

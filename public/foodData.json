@@ -28,5 +28,16 @@
       "image": "/images/iteration-2-images/pictures/food-3.png",
       "category": "Burger",
        "description":"Lorem ipsum dolor sit amet"
+    },
+    {
+      "id": 4,
+      "name": "Local Scope Pizza",
+      "price": "85₺",
+      "rating": 4.9,
+      "votes": 928,
+      "image": "/images/iteration-2-images/pictures/food-2.png",
+      "category": "Pizza",
+      "description":"Lorem ipsum dolor sit amet"
     }
+  
   ]

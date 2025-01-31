@@ -19,6 +19,7 @@ const App = () => {
       <main>
       <Switch>
   <Route exact path="/" component={HomePage} />
+  <Route path="/urunler" component={CategoryPage} />
   <Route path="/kategori/:categoryName" component={CategoryPage} />
   <Route path="/urun/:productId" component={ProductDetailPage} />
   <Route path="/siparis" component={PizzaOrderPage} />

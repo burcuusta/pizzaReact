@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Logo from "../logo";
 import Button from "../button";
 
@@ -18,7 +17,7 @@ const HomePage1 = () => {
           KOD ACIKTIRIR, <br /> PİZZA DOYURUR
         </p>
         
-        <Button to="/siparis">Acıktım</Button>
+        <Button to="/urunler">Acıktım</Button>
        
       </div>
     </div>
