@@ -17,9 +17,9 @@ const HomePage1 = () => {
         <p style={styles.subtitle}>
           KOD ACIKTIRIR, <br /> PİZZA DOYURUR
         </p>
-        <Link to="/siparis">
-        <Button>Acıktım</Button>
-        </Link>
+        
+        <Button to="/siparis">Acıktım</Button>
+       
       </div>
     </div>
   );

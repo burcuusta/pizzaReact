@@ -56,10 +56,8 @@ const HomePage2 = () => {
             <div className="product-content">
               <h2>{product.title}</h2>
               {product.description && <p>{product.description}</p>}
-              <Button>
-                <Link to={product.link} className="order-button">
-                  SİPARİŞ VER
-                </Link>
+              <Button to={product.link}>
+                     SİPARİŞ VER
               </Button>
             </div>
           </div>

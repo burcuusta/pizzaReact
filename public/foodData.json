@@ -1,0 +1,29 @@
+[
+    {
+      "id": 1,
+      "name": "Terminal Pizza",
+      "price": "60₺",
+      "rating": 4.9,
+      "votes": 200,
+      "image": "images/iteration-2-images/pictures/food-1.png",
+      "category": "Pizza"
+    },
+    {
+      "id": 2,
+      "name": "Position Absolute Acı Pizza",
+      "price": "85₺",
+      "rating": 4.9,
+      "votes": 928,
+      "image": "images/iteration-2-images/pictures/food-2.png",
+      "category": "Pizza"
+    },
+    {
+      "id": 3,
+      "name": "useEffect Tavuklu Burger",
+      "price": "75₺",
+      "rating": 4.9,
+      "votes": 462,
+      "image": "images/iteration-2-images/pictures/food-3.png",
+      "category": "Burger"
+    }
+  ]

@@ -1,0 +1,178 @@
+
+.home-container {
+    font-family: 'Roboto', sans-serif;
+   
+  }
+  .category-menu {
+    display: flex;
+    justify-content: center; ;
+    background-color: white;
+  }
+  
+  .category-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 0 0.2rem;
+    text-decoration: none; 
+    color:#292929; 
+    border-radius: 5px; 
+    transition: background-color 0.3s;
+  
+  }
+  
+  .category-item:hover {
+    background-color:  #fde4b9;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto auto; 
+    grid-gap: 20px;
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .product-card {
+    position: relative; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    width: 100%;
+   
+  }
+  
+  .product-card:first-child {
+    grid-column: 1 / 2; 
+    grid-row: 1/ 3; 
+  }
+  
+  
+  .product-card:nth-child(2) {
+    grid-column: 2 / 3; 
+    grid-row: 1 / 2; 
+  }
+  
+  .product-card:nth-child(3) {
+    grid-column: 2 / 3; 
+    grid-row: 2 / 3; 
+  }
+  
+  .product-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .product-content {
+    padding: 20px;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  .product-content {
+  
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
+  }
+  
+  
+  
+  .container3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color:  #FAF7F2;
+  }
+  
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .container3 h2 {
+    font-size: 18px;
+    color:  #CE2829;
+    font-style: italic;
+    font-family: "satisfy";
+  }
+  
+  .categories {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .category-btn {
+    padding: 10px 15px;
+    border: 2px solid #5F5F5F;
+    border-radius: 20px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .category-btn:hover {
+    background-color: #beb9b9;
+  }
+  
+  .category-btn.active {
+    background-color:#292929;
+    color: white;
+  }
+  
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    place-items: center;
+    max-width: 1200px;
+    justify-content: center;
+    margin: 0 auto;
+    
+    gap: 20px;
+    margin-top: 1rem;
+  }
+  
+  .food-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .food-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .food-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .food-card p {
+    margin: 5px 0;
+  }
+  
