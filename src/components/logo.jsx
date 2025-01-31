@@ -6,7 +6,7 @@ const Logo = () => {
     <div>
       <Link to="/">
         <img
-          src="./images/iteration-1-images/logo.svg"
+          src="/images/iteration-1-images/logo.svg"
           alt="Logo"
           className="logo"
           style={{ cursor: "pointer", fontSize:"5px"}}

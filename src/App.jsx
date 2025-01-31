@@ -4,6 +4,7 @@ import HomePage from "./components/homepage/homepage";
 import PizzaOrderPage from "./components/PizzaOrderPage";
 import Header from "./components/header";
 import SuccessPage from "./components/successPage";
+import CategoryPage from "./components/categoryPage";
 import "./App.css";
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
       <main>
       <Switch>
   <Route exact path="/" component={HomePage} />
+  <Route path="/kategori/:categoryName" component={CategoryPage} />
   <Route path="/siparis" component={PizzaOrderPage} />
   <Route path="/success" component={SuccessPage} />
 </Switch>
