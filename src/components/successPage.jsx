@@ -6,12 +6,11 @@ import { useHistory, useLocation } from "react-router-dom";
 const SuccessPage = () => {
   const history = useHistory();
   const location = useLocation();
-  const orderData = location.state || {};
-
+const orderData = location.state?.orderData;
   useEffect(() => {
     const timer = setTimeout(() => {
       history.push("/");
-    }, 10000);
+    }, 100000);
 
     return () => clearTimeout(timer);
   }, [history]);
@@ -36,6 +35,8 @@ const SuccessPage = () => {
         <p style={styles.spec}>Boyut: <strong>{orderData.size}</strong></p>
         <p style={styles.spec}>Hamur: <strong>{orderData.crust}</strong></p>
         <p style={styles.spec}>Ek Malzemeler: <strong>{orderData.toppings ? orderData.toppings.join(","): "Yok"}</strong></p>
+        <p>Adet: {orderData.quantity}</p>
+        {orderData.note && <p>Not: {orderData.note}</p>}
         </div>
         <div style={styles.priceBox}>
           <h2>Sipariş Toplamı</h2>

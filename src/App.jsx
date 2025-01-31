@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation } from "react-router-dom";
-import HomePage from "./components/homepage/homepage";
-import PizzaOrderPage from "./components/PizzaOrderPage";
+import HomePage from "/src/components/homePage/homePage.jsx";
+import PizzaOrderPage from "/src/components/main/PizzaOrderPage.jsx";
 import Header from "./components/header";
 import SuccessPage from "./components/successPage";
-import CategoryPage from "./components/categoryPage";
+import CategoryPage from "/src/components/main/categoryPage.jsx";
+import ProductDetailPage from "/src/components/main/productDetails.jsx";
 import "./App.css";
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
       <Switch>
   <Route exact path="/" component={HomePage} />
   <Route path="/kategori/:categoryName" component={CategoryPage} />
+  <Route path="/urun/:productId" component={ProductDetailPage} />
   <Route path="/siparis" component={PizzaOrderPage} />
   <Route path="/success" component={SuccessPage} />
 </Switch>

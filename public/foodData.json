@@ -6,7 +6,8 @@
       "rating": 4.9,
       "votes": 200,
       "image": "/images/iteration-2-images/pictures/food-1.png",
-      "category": "Pizza"
+      "category": "Pizza",
+      "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum"
     },
     {
       "id": 2,
@@ -15,7 +16,8 @@
       "rating": 4.9,
       "votes": 928,
       "image": "/images/iteration-2-images/pictures/food-2.png",
-      "category": "Pizza"
+      "category": "Pizza",
+      "description":"Lorem ipsum dolor sit amet"
     },
     {
       "id": 3,
@@ -24,6 +26,7 @@
       "rating": 4.9,
       "votes": 462,
       "image": "/images/iteration-2-images/pictures/food-3.png",
-      "category": "Burger"
+      "category": "Burger",
+       "description":"Lorem ipsum dolor sit amet"
     }
   ]

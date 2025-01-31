@@ -33,7 +33,7 @@ const HomePage2 = () => {
             <img src={product.image} alt={product.title} className="product-image" />
             <div className="product-content">
               <h2>{product.title}</h2>
-              <Button to={product.link}>SİPARİŞ VER</Button>
+              <Button to={product.link} style={{ alignItems: "center" }}>SİPARİŞ VER</Button>
             </div>
           </div>
         ))}

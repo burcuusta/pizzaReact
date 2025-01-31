@@ -1,5 +1,5 @@
 import React from "react";
-import PizzaOrderForm from "./orderForm";
+import PizzaOrderForm from "/src/components/main/orderForm.jsx";
 
 const PizzaOrderPage = () => {
   return (

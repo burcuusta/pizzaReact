@@ -1,24 +1,41 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Button = ({ children, to, onClick, style }) => {
+const Button = ({ children, to, onClick, style, ...rest }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  return (
-    <Link to={to} style={{ textDecoration: "none" }}>
-      <button
-        onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+  if (to) {
+    return (
+      <Link
+        to={to}
         style={{
           ...styles.button,
           ...(isHovered ? styles.buttonHover : {}),
           ...style,
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...rest}
       >
         {children}
-      </button>
-    </Link>
+      </Link>
+    );
+  }
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        ...styles.button,
+        ...(isHovered ? styles.buttonHover : {}),
+        ...style,
+      }}
+      {...rest}
+    >
+      {children}
+    </button>
   );
 };
 
@@ -33,7 +50,9 @@ const styles = {
     transition: "all 0.3s ease-in-out",
     borderRadius: "5px",
     textDecoration: "none",
-    display: "inline-block", 
+    textAlign: "center",
+    color: "#000",
+    width: "fit-content",
   },
   buttonHover: {
     backgroundColor: "yellow",

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Button from "./button";
+import Button from "../button";
 import axios from "axios";
-import SuccessPage from "./successPage";
+
 
 const PizzaSizeSelector = ({ selectedSize, setSelectedSize }) => {
   const sizes = ["Küçük", "Orta", "Büyük"];
@@ -107,9 +107,10 @@ const OrderNote = ({ note, setNote }) => {
 const OrderQuantity = ({ quantity, setQuantity }) => {
   return (
     <div style={{ display: "inline-block" }}>
-      <button onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}  style={{backgroundColor: "#FDC913"}} >-</button>
-      <span style={{ margin: "1rem" }}>{quantity}</span>
-      <button onClick={() => setQuantity((prev) => prev + 1)} style={{backgroundColor: "#FDC913"}} >+</button>
+      <button type="button" onClick={() => setQuantity((prev) => Math.max(1, prev - 1))} style={{ backgroundColor: "#FDC913" }}>-</button>
+<span style={{ margin: "1rem" }}>{quantity}</span>
+<button type="button" onClick={() => setQuantity((prev) => prev + 1)} style={{ backgroundColor: "#FDC913" }}>+</button>
+
     </div>
   );
 };
@@ -134,12 +135,19 @@ const PizzaOrderForm = () => {
   const [quantity, setQuantity] = useState(1);
   const [showNameError, setShowNameError] = useState(false);
   const history = useHistory();
+  const { state } = history.location;
+  const product = state?.product || null;
 
   useEffect(() => {
     setShowNameError(true);
   }, []);
 
-  const basePrice = 85.5;
+  if (!product) {
+    return <p>Ürün bilgisi bulunamadı.</p>;
+  }
+
+
+  const basePrice = parseInt(product.price.replace("₺", ""));
   const sizePrices = { Küçük: 0, Orta: 10, Büyük: 20 };
   const extraPrice = selectedToppings.length * 5 + sizePrices[selectedSize || "Küçük"];
   const isFormValid = name.length >= 3 && selectedSize && selectedDough && selectedToppings.length >= 4;
@@ -160,31 +168,32 @@ const PizzaOrderForm = () => {
     }
 
     const orderData = {
-      pizzaName: "Position Absolute Acı Pizza",
+      pizzaName: product.name,
       size: selectedSize,
       crust: selectedDough,
       toppings: selectedToppings,
       extraPrice: extraPrice,
       totalPrice: (basePrice + extraPrice) * quantity,
     };
+  
     axios
-    .post("https://reqres.in/api/pizza", orderData)
-    .then((response) => {
-      console.log("Sipariş Alındı:", response.data);
-  history.push({
-    pathname: "/success",
-    state: orderData,
-  });
-})
-.catch((error) => {
-      console.error("Hata oluştu:", error);
-      alert("Siparişiniz alınırken bir hata oluştu.");
-    });
-};
-
+      .post("https://reqres.in/api/pizza", orderData)
+      .then((response) => {
+        console.log("Sipariş Alındı:", response.data);
+        
+        history.push({
+          pathname: "/success",
+          state: { orderData },
+        });
+      })
+      .catch((error) => {
+        console.error("Hata oluştu:", error);
+        alert("Siparişiniz alınırken bir hata oluştu.");
+      });
+  };
   return (
     <form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "600px", margin: "50px auto" }}>
-      <h2 style={{ textAlign: "center" }}>Position Absolute Acı Pizza</h2>
+      <h2 style={{ textAlign: "center" }}>{product.name}</h2>
       
 
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -207,19 +216,11 @@ const PizzaOrderForm = () => {
         <OrderSummary basePrice={basePrice} extraPrice={extraPrice} quantity={quantity} />
       </div>
       <div style={{ textAlign: "right", marginTop: "10px" }}>
-        <Button type="submit" disabled={!isFormValid} style={{ width: "50%" }}>Sipariş Ver</Button>
+      <Button onClick={handleSubmit} type="submit" disabled={!isFormValid} style={{ width: "50%" }}>
+  Sipariş Ver
+</Button>
       </div>
     </form>
   );
 };
-const orderForm = {
-  pizzaName: "Position Absolute Acı Pizza",
-  size: "L",
-  crust: "Süper İnce",
-  toppings: ["Pepperoni", "Sosis", "Mısır", "Ananas", "Jalepeno"],
-  extraPrice: 25.00,
-  totalPrice: 110.50,
-};
-
-<SuccessPage orderData={orderForm} />
 export default PizzaOrderForm;

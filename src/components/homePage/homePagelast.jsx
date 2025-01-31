@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const categories = [
   { name: "Tüm ürünler", icon: "🍽️" },
@@ -29,10 +30,12 @@ const CategorySelector = ({ activeCategory, onSelectCategory }) => {
 const FoodCard = ({ item }) => {
   return (
     <div className="food-card">
-      <img src={item.image} alt={item.name} />
-      <h3>{item.name}</h3>
+      <Link to={`/urun/${item.id}`}>
+        <img src={item.image} alt={item.name} />
+        <h3>{item.name}</h3>
+      </Link>
       <p>{item.rating} ⭐ ({item.votes})</p>
-      <p><strong>{item.price}</strong></p>
+      <p><strong>{item.price}₺</strong></p>
     </div>
   );
 };
