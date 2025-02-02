@@ -7,6 +7,7 @@ import SuccessPage from "./components/successPage";
 import CategoryPage from "/src/components/main/categoryPage.jsx";
 import ProductDetailPage from "/src/components/main/productDetails.jsx";
 import "./App.css";
+import Footer from "./components/footer";
 
 const App = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
   <Route path="/success" component={SuccessPage} />
 </Switch>
       </main>
+      <Footer />
     </>
   );
 };
