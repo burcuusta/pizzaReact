@@ -11,23 +11,23 @@ import Footer from "./components/footer";
 
 const App = () => {
   const location = useLocation();
-  const excludedPaths = ["/success", "/"];
+  const headerExcludedPaths = ["/", "/success"];
+  const footerExcludedPaths = ["/success"];
 
   return (
     <>
-    
-    {!excludedPaths.includes(location.pathname) && <Header />} 
+      {!headerExcludedPaths.includes(location.pathname) && <Header />}
       <main>
-      <Switch>
-  <Route exact path="/" component={HomePage} />
-  <Route path="/urunler" component={CategoryPage} />
-  <Route path="/kategori/:categoryName" component={CategoryPage} />
-  <Route path="/urun/:productId" component={ProductDetailPage} />
-  <Route path="/siparis" component={PizzaOrderPage} />
-  <Route path="/success" component={SuccessPage} />
-</Switch>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/urunler" component={CategoryPage} />
+          <Route path="/kategori/:categoryName" component={CategoryPage} />
+          <Route path="/urun/:productId" component={ProductDetailPage} />
+          <Route path="/siparis" component={PizzaOrderPage} />
+          <Route path="/success" component={SuccessPage} />
+        </Switch>
       </main>
-      <Footer />
+      {!footerExcludedPaths.includes(location.pathname) && <Footer />}
     </>
   );
 };
