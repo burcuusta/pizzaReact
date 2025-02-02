@@ -79,8 +79,29 @@
     cursor: pointer;
     
   }
-  .topping-option input ch {
+  .topping-option input {
+    appearance: none; 
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f8eedb; 
+    background-color: #FAF7F2; 
+    border-radius: 4px;
     cursor: pointer;
+    position: relative;
+    outline: none;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  .topping-option input:checked {
+    background-color: yellow; 
+    border-color: yellow;     
+  }
+  .topping-option input:checked::after {
+    content: "✔"; 
+    position: absolute;
+    top: 2px;
+    left: 5px;
+    font-size: 14px;
+    color: black; 
   }
   
   .order-note-textarea {
